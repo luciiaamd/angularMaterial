@@ -1,0 +1,60 @@
+<div class="task-form">
+  <mat-form-field>
+    <input matInput placeholder="Nueva tarea" [(ngModel)]="newTask" />
+  </mat-form-field>
+  <button mat-raised-button color="primary" (click)="addTask()">Añadir Tarea</button>
+</div>
+
+<div class="task-columns">
+  <div
+    class="task-column"
+    cdkDropList
+    [cdkDropListData]="pendingTasks"
+    (cdkDropListDropped)="drop($event)"
+    [cdkDropListConnectedTo]="['inProgressList', 'completedList', 'deleteZone']"
+    #pendingList="cdkDropList"
+  >
+    <h3>Pendientes</h3>
+    <div *ngFor="let task of pendingTasks" cdkDrag>
+      <mat-card class="task-item">{{ task }}</mat-card>
+    </div>
+  </div>
+
+  <div
+    class="task-column"
+    cdkDropList
+    [cdkDropListData]="inProgressTasks"
+    (cdkDropListDropped)="drop($event)"
+    [cdkDropListConnectedTo]="['pendingList', 'completedList', 'deleteZone']"
+    #inProgressList="cdkDropList"
+  >
+    <h3>En Progreso</h3>
+    <div *ngFor="let task of inProgressTasks" cdkDrag>
+      <mat-card class="task-item">{{ task }}</mat-card>
+    </div>
+  </div>
+
+  <div
+    class="task-column"
+    cdkDropList
+    [cdkDropListData]="completedTasks"
+    (cdkDropListDropped)="drop($event)"
+    [cdkDropListConnectedTo]="['pendingList', 'inProgressList', 'deleteZone']"
+    #completedList="cdkDropList"
+  >
+    <h3>Completadas</h3>
+    <div *ngFor="let task of completedTasks" cdkDrag>
+      <mat-card class="task-item">{{ task }}</mat-card>
+    </div>
+  </div>
+
+  <div
+    class="task-column delete-zone"
+    cdkDropList
+    (cdkDropListDropped)="deleteTask($event)"
+    #deleteZone="cdkDropList"
+    [cdkDropListConnectedTo]="['pendingList', 'inProgressList', 'completedList']"
+  >
+    <h3>Eliminar</h3>
+  </div>
+</div>

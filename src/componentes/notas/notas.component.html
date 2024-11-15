@@ -1,0 +1,49 @@
+<form>
+  <mat-form-field>
+    <mat-label>Filtrar por Nombre</mat-label>
+    <input matInput (keyup)="filtroNombre($event)" placeholder="Nombre">
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Filtrar por Estado</mat-label>
+    <mat-select (selectionChange)="filtroEstado($event)">
+      <mat-option value="">Todos</mat-option>
+      <mat-option value="Aprobado">Aprobado</mat-option>
+      <mat-option value="Suspenso">Suspenso</mat-option>
+    </mat-select>
+  </mat-form-field>
+</form>
+
+  <table mat-table [dataSource]="dataSource">
+    <ng-container matColumnDef="nombre">
+      <th mat-header-cell *matHeaderCellDef> Alumno </th>
+      <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="nota">
+      <th mat-header-cell *matHeaderCellDef> Nota </th>
+      <td mat-cell *matCellDef="let element"> {{element.nota}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="estado">
+      <th mat-header-cell *matHeaderCellDef> Estado </th>
+      <td mat-cell *matCellDef="let element"> {{element.estado}} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="columnas"></tr>
+    <tr mat-row *matRowDef="let row; columns: columnas;"></tr>
+  </table>
+
+<mat-form-field>
+  <mat-label>Nombre</mat-label>
+  <input matInput type="text" [(ngModel)]="nuevoNombre">
+</mat-form-field>
+<mat-form-field>
+  <mat-label>Nota</mat-label>
+  <input matInput type="number" [(ngModel)]="nuevaNota">
+</mat-form-field>
+
+<button mat-fab aria-label="Añadir alumno" (click)="agregarEstudiante()">
+  <mat-icon>add</mat-icon>
+</button>
+

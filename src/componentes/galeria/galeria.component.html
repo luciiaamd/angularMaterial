@@ -1,0 +1,13 @@
+<div class="search-container">
+  <input type="text" placeholder="Buscar por descripción..." [(ngModel)]="searchTerm">
+</div>
+<div class="grid-container">
+  <mat-grid-list cols="2" rowHeight="2:1">
+    <mat-grid-tile *ngFor="let image of filteredImages()" (click)="openImageModal(image)">
+      <img [src]="image.src" [alt]="image.description">
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>
+<div class="add-button-container">
+  <button mat-raised-button color="primary" (click)="openAddImageModal()">Añadir Imagen</button>
+</div>
